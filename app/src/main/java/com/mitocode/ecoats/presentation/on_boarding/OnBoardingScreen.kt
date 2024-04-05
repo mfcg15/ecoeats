@@ -31,8 +31,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.mitocode.ecoats.R
-import com.mitocode.ecoats.common.ImageComponent
-import com.mitocode.ecoats.common.TextComponent
+import com.mitocode.ecoats.presentation.common.ImageComponent
+import com.mitocode.ecoats.presentation.common.TextComponent
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 import com.mitocode.ecoats.ui.theme.PrimaryText
 

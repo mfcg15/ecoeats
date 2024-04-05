@@ -18,10 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mitocode.ecoats.R
-import com.mitocode.ecoats.common.ImageComponent
-import com.mitocode.ecoats.common.SpacerComponent
-import com.mitocode.ecoats.common.TextComponent
-import com.mitocode.ecoats.common.ButtonComponent
+import com.mitocode.ecoats.presentation.common.ImageComponent
+import com.mitocode.ecoats.presentation.common.SpacerComponent
+import com.mitocode.ecoats.presentation.common.TextComponent
+import com.mitocode.ecoats.presentation.common.ButtonComponent
 import com.mitocode.ecoats.ui.theme.Primary
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
