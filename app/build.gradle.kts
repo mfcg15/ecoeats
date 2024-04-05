@@ -69,4 +69,10 @@ dependencies {
 
     //Navigation component compose
     implementation("androidx.navigation:navigation-compose:2.5.3")
+
+    //Pager
+    implementation("com.google.accompanist:accompanist-pager:0.28.0")
+
+    //Icons Material3
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 }
