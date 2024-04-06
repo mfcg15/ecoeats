@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mitocode.ecoats.presentation.login.LoginScreen
 import com.mitocode.ecoats.presentation.on_boarding.OnBoardingScreen
+import com.mitocode.ecoats.presentation.register.RegisterScreen
 import com.mitocode.ecoats.presentation.welcome.WelcomeScreen
 
 @Composable
@@ -16,20 +17,24 @@ fun SetupNavGraph() {
     NavHost(navController = navController, startDestination = Screen.Welcome.route)
     {
         composable(route = Screen.Welcome.route) {
-            WelcomeScreen(onClick = {
-                navController.popBackStack()
-                navController.navigate(route = Screen.OnBoarding.route)
-            })
+            WelcomeScreen(
+                onNavigateOnBoarding = { navController.navigate(route = Screen.OnBoarding.route)},
+                onNavigateLogin = {navController.navigate(route = Screen.Login.route)}
+            )
         }
         composable(route = Screen.OnBoarding.route) {
             OnBoardingScreen(onClick = {
-                navController.popBackStack()
                 navController.navigate(route = Screen.Login.route)
             })
         }
         composable(route = Screen.Login.route) {
             LoginScreen(
+                onNavigateHome = { navController.navigate(route = Screen.Home.route)},
+                onNavigateRegister = {navController.navigate(route = Screen.Register.route)}
             )
+        }
+        composable(route = Screen.Register.route){
+            RegisterScreen()
         }
     }
 }

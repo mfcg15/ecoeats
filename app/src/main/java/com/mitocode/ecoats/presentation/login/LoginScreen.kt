@@ -51,6 +51,8 @@ import com.mitocode.ecoats.presentation.common.TextAnnotationStringComponent
 
 @Composable
 fun LoginScreen(
+    onNavigateHome: () -> Unit,
+    onNavigateRegister: () -> Unit
 ) {
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -77,7 +79,7 @@ fun LoginScreen(
                 .padding(top = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FooterLogin()
+            FooterLogin(onNavigateRegister = { onNavigateRegister()})
         }
     }
 
@@ -211,7 +213,7 @@ fun ContentLogin() {
 }
 
 @Composable
-fun FooterLogin() {
+fun FooterLogin(onNavigateRegister: () -> Unit) {
 
     TextAnnotationStringComponent(
         text = buildAnnotatedString {
@@ -243,7 +245,7 @@ fun FooterLogin() {
         containerColor = Color.White,
         contentColor = PrimaryButton,
         onClickButton = {
-
+            onNavigateRegister()
         },
         border = BorderStroke(width = 1.dp, color = PrimaryButton),
         modifier = Modifier
@@ -256,5 +258,5 @@ fun FooterLogin() {
 @Preview(name = "LoginScreen", showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(onNavigateHome = {}, onNavigateRegister = {})
 }

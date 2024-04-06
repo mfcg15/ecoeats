@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -170,12 +171,19 @@ fun FinishButtonComponent(
     pages: List<OnBoardingPage>,
     onClick:()->Unit
 ) {
+
+    val context = LocalContext.current
+
+    val saveScreen = SaveOnBoardingScreen(context)
+
     AnimatedVisibility(
         visible = pagerState.currentPage == pages.size - 1
     ) {
         Button(
             modifier = modifier,
-            onClick = { onClick() },
+            onClick = {
+                saveScreen.saveOnBoardingScreen(true)
+                onClick() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = PrimaryButton,
                 contentColor = Color.White

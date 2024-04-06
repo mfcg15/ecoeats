@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,11 +23,12 @@ import com.mitocode.ecoats.presentation.common.ImageComponent
 import com.mitocode.ecoats.presentation.common.SpacerComponent
 import com.mitocode.ecoats.presentation.common.TextComponent
 import com.mitocode.ecoats.presentation.common.ButtonComponent
+import com.mitocode.ecoats.presentation.on_boarding.SaveOnBoardingScreen
 import com.mitocode.ecoats.ui.theme.Primary
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
 @Composable
-fun WelcomeScreen(onClick: () -> Unit) {
+fun WelcomeScreen(onNavigateOnBoarding: () -> Unit, onNavigateLogin: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -47,9 +49,8 @@ fun WelcomeScreen(onClick: () -> Unit) {
             contentAlignment = Alignment.BottomCenter
         ) {
             WelcomeContent(
-                onClick = {
-                    onClick()
-                }
+                onNavigateOnBoarding = { onNavigateOnBoarding()},
+                onNavigateLogin = { onNavigateLogin() }
             )
         }
 
@@ -84,7 +85,11 @@ fun WelcomeHeader() {
 }
 
 @Composable
-fun WelcomeContent(onClick: () -> Unit) {
+fun WelcomeContent(onNavigateOnBoarding: () -> Unit, onNavigateLogin: () -> Unit) {
+
+    val context = LocalContext.current
+
+    val saveScreen = SaveOnBoardingScreen(context)
 
     ImageComponent(
         image = R.drawable.background_fruits,
@@ -101,7 +106,17 @@ fun WelcomeContent(onClick: () -> Unit) {
         containerColor = PrimaryButton,
         modifier = Modifier.padding(bottom = 50.dp),
         onClickButton = {
-            onClick()
+
+            var flag = saveScreen.getOnBoardingScreen()
+
+            if(flag)
+            {
+                onNavigateLogin()
+            }
+            else
+            {
+                onNavigateOnBoarding()
+            }
         }
     )
 }
@@ -109,5 +124,5 @@ fun WelcomeContent(onClick: () -> Unit) {
 @Preview(showSystemUi = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen(onClick = {})
+    WelcomeScreen(onNavigateOnBoarding = {}, onNavigateLogin = {})
 }

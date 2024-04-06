@@ -129,7 +129,7 @@ fun OutlinedButtonComponent(
 ) {
     OutlinedButton(
         modifier = modifier,
-        onClick = { onClickButton },
+        onClick = { onClickButton() },
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = containerColor,
             contentColor = contentColor
