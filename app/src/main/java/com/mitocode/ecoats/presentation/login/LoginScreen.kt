@@ -70,7 +70,7 @@ fun LoginScreen(
                 .weight(4f)
                 .padding(start = 24.dp, end = 24.dp, top = 24.dp)
         ) {
-            ContentLogin()
+            ContentLogin(onNavigateHome = { onNavigateHome()})
         }
         Column(
             modifier = Modifier
@@ -99,7 +99,7 @@ fun HeaderLogin() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContentLogin() {
+fun ContentLogin(onNavigateHome: () -> Unit) {
 
     var email by remember {
         mutableStateOf("")
@@ -130,21 +130,21 @@ fun ContentLogin() {
             unfocusedBorderColor = Color.Black
         ),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
+            keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next
         ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-
-            }
-        ),
         trailingIcon = {
-            IconButton(onClick = { email = "" }) {
-                Icon(
-                    imageVector = Icons.Filled.Clear,
-                    contentDescription = "Clear"
-                )
+
+            if(email != "")
+            {
+                IconButton(onClick = { email = "" }) {
+                    Icon(
+                        imageVector = Icons.Filled.Clear,
+                        contentDescription = "Clear"
+                    )
+                }
             }
+
         },
 
         onValueChange = {
@@ -164,24 +164,23 @@ fun ContentLogin() {
             unfocusedBorderColor = Color.Black
         ),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
+            keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-
-            }
-        ),
         trailingIcon = {
-            IconButton(onClick = { visualTransformation = !visualTransformation }) {
-                Icon(
-                    imageVector = if (visualTransformation) {
-                        Icons.Filled.Visibility
-                    } else {
-                        Icons.Filled.VisibilityOff
-                    },
-                    contentDescription = "Clear"
-                )
+
+            if(password != "")
+            {
+                IconButton(onClick = { visualTransformation = !visualTransformation }) {
+                    Icon(
+                        imageVector = if (visualTransformation) {
+                            Icons.Filled.Visibility
+                        } else {
+                            Icons.Filled.VisibilityOff
+                        },
+                        contentDescription = "Clear"
+                    )
+                }
             }
         },
         visualTransformation = if (visualTransformation) {
@@ -203,6 +202,7 @@ fun ContentLogin() {
             containerColor = PrimaryButton,
             contentColor = Color.White,
             onClickButton = {
+                onNavigateHome()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -230,7 +230,7 @@ fun FooterLogin(onNavigateRegister: () -> Unit) {
     SpacerComponent(modifier = Modifier.height(64.dp))
 
     TextComponent(
-        text = "¿usted no tiene una cuenta?",
+        text = "¿Usted no tiene una cuenta?",
         style = TextStyle(fontWeight = FontWeight.Normal)
     )
 

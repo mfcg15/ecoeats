@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -19,9 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
+import com.mitocode.ecoats.ui.theme.PrimaryButton
 
 @Composable
 fun ImageComponent(
@@ -78,7 +84,6 @@ fun OutlinedTextFieldComponent(
     textLabel:String,
     colors: TextFieldColors,
     keyboardOptions: KeyboardOptions,
-    keyboardActions: KeyboardActions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: @Composable (() -> Unit)? = null,
     onValueChange : (String) -> Unit
@@ -97,7 +102,6 @@ fun OutlinedTextFieldComponent(
         },
         colors = colors,
         keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation
     )
