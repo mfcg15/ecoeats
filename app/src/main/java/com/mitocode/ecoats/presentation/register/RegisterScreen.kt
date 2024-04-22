@@ -336,6 +336,7 @@ fun ContentRegister(onNavigateHome: () -> Unit) {
             onClickButton = {
                 onNavigateHome()
             },
+            enable = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)

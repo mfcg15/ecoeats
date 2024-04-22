@@ -117,7 +117,8 @@ fun WelcomeContent(onNavigateOnBoarding: () -> Unit, onNavigateLogin: () -> Unit
             {
                 onNavigateOnBoarding()
             }
-        }
+        },
+        enable = true
     )
 }
 

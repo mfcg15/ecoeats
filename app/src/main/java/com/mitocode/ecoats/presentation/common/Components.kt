@@ -60,6 +60,7 @@ fun ButtonComponent(
     style: TextStyle,
     containerColor: Color,
     contentColor: Color,
+    enable : Boolean,
     onClickButton: () -> Unit
 ) {
 
@@ -69,7 +70,8 @@ fun ButtonComponent(
         colors = ButtonDefaults.buttonColors(
             contentColor = contentColor,
             containerColor = containerColor
-        )
+        ),
+        enabled = enable
     ) {
         Text(text = text, style = style)
     }
