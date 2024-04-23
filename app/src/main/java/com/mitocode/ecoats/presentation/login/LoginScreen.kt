@@ -165,7 +165,10 @@ fun ContentLogin(viewmodel: LoginViewModel) {
 
         onValueChange = {
             email = it
-        }
+        },
+
+        supportingText = {},
+        isError = false
     )
 
     OutlinedTextFieldComponent(
@@ -206,7 +209,10 @@ fun ContentLogin(viewmodel: LoginViewModel) {
 
         onValueChange = {
             password = it
-        }
+        },
+
+        supportingText = {},
+        isError = false
     )
 
     if (viewmodel.state.isLoading) {

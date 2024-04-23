@@ -2,10 +2,13 @@ package com.mitocode.ecoats.data.networking
 
 import com.mitocode.ecoats.data.model.LoginRequest
 import com.mitocode.ecoats.data.model.LoginResponse
+import com.mitocode.ecoats.data.model.RegisterRequest
+import com.mitocode.ecoats.data.model.RegisterResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 object Api {
@@ -18,6 +21,9 @@ object Api {
 
         @POST("api/securities/login")
         suspend fun logIn(@Body request: LoginRequest) : Response<LoginResponse>
+
+        @POST("api/user")
+        suspend fun register(@Header("Authorization") authorization:String, @Body request: RegisterRequest) : Response<RegisterResponse>
 
     }
 

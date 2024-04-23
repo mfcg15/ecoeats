@@ -88,7 +88,9 @@ fun OutlinedTextFieldComponent(
     keyboardOptions: KeyboardOptions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: @Composable (() -> Unit)? = null,
-    onValueChange : (String) -> Unit
+    onValueChange : (String) -> Unit,
+    supportingText : @Composable (() -> Unit)? = null,
+    isError : Boolean
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -105,7 +107,9 @@ fun OutlinedTextFieldComponent(
         colors = colors,
         keyboardOptions = keyboardOptions,
         trailingIcon = trailingIcon,
-        visualTransformation = visualTransformation
+        visualTransformation = visualTransformation,
+        supportingText =  supportingText,
+        isError = isError
     )
 }
 
