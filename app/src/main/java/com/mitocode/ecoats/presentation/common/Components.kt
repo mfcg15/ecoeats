@@ -8,14 +8,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -27,6 +39,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
+import com.mitocode.ecoats.presentation.home.BottomNavigationItem
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
 @Composable
@@ -150,5 +164,79 @@ fun OutlinedButtonComponent(
             text = text,
             style = style
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBarComponent(
+    modifier: Modifier = Modifier,
+    text:String,
+    backgroundColor:Color = Color.White
+) {
+    TopAppBar(
+        modifier = modifier,
+        title = {
+            Text(
+                text = text,
+                fontSize = 20.sp
+            )
+        },
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = backgroundColor
+        ),
+        actions = {
+            Icon(
+                imageVector = Icons.Filled.Notifications,
+                contentDescription = "Notifications",
+                tint = Color.Black
+            )
+        },
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Filled.Menu,
+                contentDescription = "Menu",
+                tint = Color.Black
+            )
+        }
+    )
+}
+
+@Composable
+fun NavigationBarComponent(
+    modifier : Modifier = Modifier,
+    items:List<BottomNavigationItem>,
+    onNavigationItem:(BottomNavigationItem)->Unit
+) {
+    var selectedItemIndex by remember {
+        mutableStateOf(0)
+    }
+
+    NavigationBar(modifier = modifier) {
+        items.forEachIndexed { index, item ->
+            NavigationBarItem(
+                selected = selectedItemIndex == index,
+                onClick = {
+                    selectedItemIndex = index
+                    onNavigationItem(item)
+                },
+                icon = {
+                    Icon(
+                        imageVector = if (index == selectedItemIndex) {
+                            item.selectedIcon
+                        } else item.unSelectedIcon,
+                        contentDescription = item.title,
+                        tint = if (index == selectedItemIndex) {
+                            PrimaryButton
+                        }else{
+                            Color.Black
+                        }
+                    )
+                },
+                label = {
+                    Text(text = item.title)
+                }
+            )
+        }
     }
 }
