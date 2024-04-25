@@ -2,19 +2,25 @@ package com.mitocode.ecoats.presentation.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.AlertDialogDefaults.containerColor
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
@@ -32,13 +38,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mitocode.ecoats.presentation.home.BottomNavigationItem
 import com.mitocode.ecoats.ui.theme.PrimaryButton
@@ -171,36 +174,55 @@ fun OutlinedButtonComponent(
 @Composable
 fun TopAppBarComponent(
     modifier: Modifier = Modifier,
-    text:String,
-    backgroundColor:Color = Color.White
+    cantidad:Int,
+    backgroundColor:Color = Color.White,
+    onCartShopping:()->Unit
 ) {
     TopAppBar(
         modifier = modifier,
-        title = {
-            Text(
-                text = text,
-                fontSize = 20.sp
-            )
-        },
+        title = {},
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = backgroundColor
         ),
         actions = {
-            Icon(
-                imageVector = Icons.Filled.Notifications,
-                contentDescription = "Notifications",
-                tint = Color.Black
-            )
-        },
-        navigationIcon = {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = "Menu",
-                tint = Color.Black
-            )
+
+            IconButton(onClick = {
+                onCartShopping()
+            }) {
+                if(cantidad > 0)
+                {
+                    Text(text = "${cantidad}")
+                    BadgedBox(
+                        badge = {
+                            Badge(
+                                content = {
+                                    Text(text = "${cantidad}")
+                                },
+                                containerColor = Color.Cyan,
+                                modifier = Modifier.offset(x = (-3).dp)
+                            )
+                        }
+                    ){
+                        Icon(
+                            imageVector = Icons.Filled.ShoppingCart,
+                            contentDescription = "Notifications",
+                            tint = Color.Black
+                        )
+                    }
+                }
+                else
+                {
+                    Icon(
+                        imageVector = Icons.Filled.ShoppingCart,
+                        contentDescription = "Notifications",
+                        tint = Color.Black
+                    )
+                }
+            }
         }
     )
 }
+
 
 @Composable
 fun NavigationBarComponent(

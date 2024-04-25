@@ -1,5 +1,6 @@
 package com.mitocode.ecoats.data.networking
 
+import com.mitocode.ecoats.data.model.DishResponse
 import com.mitocode.ecoats.data.model.LoginRequest
 import com.mitocode.ecoats.data.model.LoginResponse
 import com.mitocode.ecoats.data.model.RegisterRequest
@@ -8,6 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -25,6 +27,8 @@ object Api {
         @POST("api/user")
         suspend fun register(@Header("Authorization") authorization:String, @Body request: RegisterRequest) : Response<RegisterResponse>
 
+        @GET("api/dish")
+        suspend fun getDishes(@Header("Authorization") authorization:String) : Response<DishResponse>
     }
 
     fun build() : HealthyMethods{

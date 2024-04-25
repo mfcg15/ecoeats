@@ -47,7 +47,6 @@ fun SetupNavGraph() {
         }
         composable(route = Screen.Home.route){
             HomeScreen()
-
         }
     }
 }

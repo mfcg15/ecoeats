@@ -1,5 +1,7 @@
 package com.mitocode.ecoats.data.repository
 
+import android.content.SharedPreferences
+import android.util.Log
 import com.mitocode.ecoats.core.Result
 import com.mitocode.ecoats.data.networking.Api
 import com.mitocode.ecoats.data.model.LoginRequest
@@ -9,8 +11,9 @@ import com.mitocode.ecoats.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
+import javax.inject.Inject
 
-class LoginRepositoryImp : LoginRepository {
+class LoginRepositoryImp @Inject constructor(val sharedPreferences: SharedPreferences)  : LoginRepository {
     override suspend fun signIn(email: String, password: String) : Flow<Result<User>> = flow {
 
         try{
@@ -31,6 +34,7 @@ class LoginRepositoryImp : LoginRepository {
 
                 if(loginResponse?.success == true)
                 {
+                    sharedPreferences.edit().putString("KEY_TOKEN",loginResponse.data.token).apply()
                     emit(Result.Success(data = loginResponse.data.toUser()))
                 }
                 else
@@ -45,7 +49,7 @@ class LoginRepositoryImp : LoginRepository {
         }
         catch (ex:IOException)
         {
-            emit(Result.Error(message = "Compruebe su conexión al internet"))
+            emit(Result.Error(message = "Compruebe su conexión a internet"))
         }
         catch (ex:Exception)
         {

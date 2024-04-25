@@ -6,7 +6,9 @@ sealed class ScreenHome(val route:String) {
 
     object DishFavorite : ScreenHome(route = "dish_favorite_screen")
 
-    object Search : ScreenHome(route = "search_screen")
+    object Payments : ScreenHome(route = "payments_screen")
+
+    object CartShopping : ScreenHome(route = "cartshopping_screen")
 
     object DishDetail : ScreenHome(route = "dish_detail_screen")
 

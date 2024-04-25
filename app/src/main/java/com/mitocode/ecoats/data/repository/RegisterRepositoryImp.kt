@@ -1,5 +1,7 @@
 package com.mitocode.ecoats.data.repository
 
+import android.content.SharedPreferences
+import android.util.Log
 import com.mitocode.ecoats.core.Result
 import com.mitocode.ecoats.data.model.LoginRequest
 import com.mitocode.ecoats.data.model.RegisterRequest
@@ -10,8 +12,9 @@ import com.mitocode.ecoats.domain.repository.RegisterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
+import javax.inject.Inject
 
-class RegisterRepositoryImp : RegisterRepository {
+class RegisterRepositoryImp @Inject constructor(val sharedPreferences: SharedPreferences) : RegisterRepository {
     override suspend fun signup(
         name: String,
         lastname: String,
@@ -26,6 +29,8 @@ class RegisterRepositoryImp : RegisterRepository {
             val respUser = Api.build().logIn(LoginRequest(email = "jledesma2509@gmail.com", password = "123"))
 
             val token : String = respUser.body()?.data?.token!!
+
+            sharedPreferences.edit().putString("KEY_TOKEN",token).apply()
 
             val response = Api.build().register(
                 "Bearer $token",
@@ -59,7 +64,7 @@ class RegisterRepositoryImp : RegisterRepository {
         }
         catch (ex: IOException)
         {
-            emit(Result.Error(message = "Compruebe su conexión al internet"))
+            emit(Result.Error(message = "Compruebe su conexión a internet"))
         }
         catch (ex:Exception)
         {

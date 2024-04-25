@@ -6,20 +6,20 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitocode.ecoats.core.Result
-import com.mitocode.ecoats.data.repository.RegisterRepositoryImp
 import com.mitocode.ecoats.domain.repository.RegisterRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel: ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(val repository: RegisterRepository) : ViewModel() {
 
     var state by mutableStateOf(RegisterState())
 
     fun signup(name:String,lastname:String,email:String,password:String)
     {
-
-        val repository : RegisterRepository = RegisterRepositoryImp()
 
         viewModelScope.launch {
 

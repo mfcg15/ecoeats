@@ -5,10 +5,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Summarize
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Summarize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -34,13 +38,13 @@ fun HomeScreen() {
             title = "Guardado",
             selectedIcon = Icons.Filled.Bookmark,
             unSelectedIcon = Icons.Outlined.BookmarkBorder,
-            route = ScreenHome.Setting.route
+            route = ScreenHome.DishFavorite.route
         ),
         BottomNavigationItem(
-            title = "Buscar",
-            selectedIcon = Icons.Filled.Search,
-            unSelectedIcon = Icons.Outlined.Search,
-            route = ScreenHome.Search.route
+            title = "Compras",
+            selectedIcon = Icons.Filled.Payments,
+            unSelectedIcon = Icons.Outlined.Payments,
+            route = ScreenHome.Payments.route
         )
     )
 
@@ -50,8 +54,11 @@ fun HomeScreen() {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBarComponent(
-                text = "",
-                modifier = Modifier.padding(horizontal = 8.dp)
+                cantidad = 0,
+                modifier = Modifier.padding(horizontal = 8.dp),
+                onCartShopping = {
+                    navController.navigate(ScreenHome.CartShopping.route)
+                }
             )
         },
         bottomBar = {

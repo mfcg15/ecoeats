@@ -232,7 +232,7 @@ fun ContentLogin(viewmodel: LoginViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 6.dp),
             contentAlignment = Alignment.Center
         ) {
             TextComponent(
