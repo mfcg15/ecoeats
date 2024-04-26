@@ -1,10 +1,10 @@
 package com.mitocode.ecoats.data.networking
 
-import com.mitocode.ecoats.data.model.DishResponse
-import com.mitocode.ecoats.data.model.LoginRequest
-import com.mitocode.ecoats.data.model.LoginResponse
-import com.mitocode.ecoats.data.model.RegisterRequest
-import com.mitocode.ecoats.data.model.RegisterResponse
+import com.mitocode.ecoats.data.networking.model.DishResponse
+import com.mitocode.ecoats.data.networking.model.LoginRequest
+import com.mitocode.ecoats.data.networking.model.LoginResponse
+import com.mitocode.ecoats.data.networking.model.RegisterRequest
+import com.mitocode.ecoats.data.networking.model.RegisterResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

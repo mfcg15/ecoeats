@@ -3,9 +3,11 @@ package com.mitocode.ecoats.data.repository
 import android.content.SharedPreferences
 import android.util.Log
 import com.mitocode.ecoats.core.Result
-import com.mitocode.ecoats.data.model.LoginRequest
-import com.mitocode.ecoats.data.model.RegisterRequest
+import com.mitocode.ecoats.data.database.dao.UserDao
+import com.mitocode.ecoats.data.networking.model.LoginRequest
+import com.mitocode.ecoats.data.networking.model.RegisterRequest
 import com.mitocode.ecoats.data.networking.Api
+import com.mitocode.ecoats.domain.model.ToEntityUser
 import com.mitocode.ecoats.domain.model.User
 import com.mitocode.ecoats.domain.model.toUser
 import com.mitocode.ecoats.domain.repository.RegisterRepository
@@ -14,7 +16,7 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class RegisterRepositoryImp @Inject constructor(val sharedPreferences: SharedPreferences) : RegisterRepository {
+class RegisterRepositoryImp @Inject constructor(val sharedPreferences: SharedPreferences,  val userDao: UserDao) : RegisterRepository {
     override suspend fun signup(
         name: String,
         lastname: String,
@@ -49,6 +51,10 @@ class RegisterRepositoryImp @Inject constructor(val sharedPreferences: SharedPre
 
                 if(registerResponse?.success == true)
                 {
+                    val userEntity = response.body()?.data?.ToEntityUser()
+                    if (userEntity != null) {
+                        userDao.save(userEntity)
+                    }
                     emit(Result.Success(data = registerResponse.data.toUser()))
                 }
                 else

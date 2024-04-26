@@ -1,6 +1,8 @@
 package com.mitocode.ecoats.domain.model
 
-import com.mitocode.ecoats.data.model.UserDTO
+import com.mitocode.ecoats.data.database.model.DishEntity
+import com.mitocode.ecoats.data.database.model.UserEntity
+import com.mitocode.ecoats.data.networking.model.UserDTO
 
 data class User(
     val id:Int,
@@ -9,6 +11,13 @@ data class User(
 
 fun UserDTO.toUser() : User{
     return User(
+        id = this.id,
+        email = this.email
+    )
+}
+
+fun UserDTO.ToEntityUser() : UserEntity {
+    return UserEntity(
         id = this.id,
         email = this.email
     )

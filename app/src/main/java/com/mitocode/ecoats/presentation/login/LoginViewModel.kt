@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.mitocode.ecoats.core.Result
 import com.mitocode.ecoats.data.repository.LoginRepositoryImp
 import com.mitocode.ecoats.domain.repository.LoginRepository
+import com.mitocode.ecoats.presentation.util.ConnectivityChecker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val repository: LoginRepository) : ViewModel(){
+class LoginViewModel @Inject constructor(val repository: LoginRepository,  val connectivityChecker: ConnectivityChecker) : ViewModel(){
 
     var state by mutableStateOf(LoginState())
 

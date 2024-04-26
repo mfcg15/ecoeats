@@ -1,6 +1,7 @@
 package com.mitocode.ecoats.domain.model
 
-import com.mitocode.ecoats.data.model.DishDTO
+import com.mitocode.ecoats.data.database.model.DishEntity
+import com.mitocode.ecoats.data.networking.model.DishDTO
 
 data class Dish(
     val id:Int,
@@ -13,8 +14,7 @@ data class Dish(
     val price:Double,
     val rating:Double,
     val ingredients:String,
-    val flagHeader:Boolean,
-    val favorite:Boolean
+    val flagHeader:Boolean
 )
 
 fun List<DishDTO>.ToDishList() : List<Dish> = map {
@@ -29,7 +29,38 @@ fun List<DishDTO>.ToDishList() : List<Dish> = map {
         price = it.price,
         rating = it.rating,
         ingredients = it.ingredients,
+        flagHeader = it.flagHeader
+    )
+}
+
+fun List<DishEntity>.ToEntityDishList() : List<Dish> = map {
+    Dish(
+        id = it.id,
+        name = it.name,
+        description = it.description,
+        thumbails = it.thumbails,
+        image = it.image,
+        carbohydrates = it.carbohydrates,
+        proteins = it.proteins,
+        price = it.price,
+        rating = it.rating,
+        ingredients = it.ingredients,
+        flagHeader = it.flagHeader
+    )
+}
+
+fun List<DishDTO>.toDishEntityList(): List<DishEntity> = map{
+    DishEntity(
+        id = it.id,
+        name = it.name,
+        description = it.description,
+        thumbails = it.thumbails,
+        image = it.image,
+        carbohydrates = it.carbohydrates,
+        proteins = it.proteins,
+        price = it.price,
+        rating = it.rating,
+        ingredients = it.ingredients,
         flagHeader = it.flagHeader,
-        favorite = false
     )
 }

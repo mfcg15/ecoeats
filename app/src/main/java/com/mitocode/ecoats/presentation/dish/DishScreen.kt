@@ -96,7 +96,7 @@ fun DishScreen(
     }
 
     LaunchedEffect(key1 = true) {
-        viewmodel.getDishes()
+        viewmodel.fetchData()
     }
 
     if (state.error != null) {
@@ -104,7 +104,6 @@ fun DishScreen(
     }
 
     val pagerState = rememberPagerState()
-
 
     Box(
         modifier = Modifier
@@ -457,8 +456,7 @@ fun DishItem(
                 IconButton(onClick = {
                 }) {
                     Icon(
-                        imageVector = if(dish.favorite) Icons.Filled.Bookmark
-                        else Icons.Outlined.BookmarkBorder,
+                        imageVector = Icons.Outlined.BookmarkBorder,
                         contentDescription = "Favorite",
                         tint = PrimaryButton,
                     )

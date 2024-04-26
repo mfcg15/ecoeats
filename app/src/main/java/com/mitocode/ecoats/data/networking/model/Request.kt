@@ -1,4 +1,4 @@
-package com.mitocode.ecoats.data.model
+package com.mitocode.ecoats.data.networking.model
 
 data class LoginRequest(
     val email:String,

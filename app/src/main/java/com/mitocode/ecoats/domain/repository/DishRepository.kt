@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface DishRepository {
 
-    suspend fun getDishes() : Flow<Result<List<Dish>>>
+    suspend fun getDishesRemote() : Flow<Result<List<Dish>>>
+
+    suspend fun getDishesLocally() : Flow<Result<List<Dish>>>
 
 }

@@ -1,4 +1,4 @@
-package com.mitocode.ecoats.data.model
+package com.mitocode.ecoats.data.networking.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ data class LoginResponse(
     @SerializedName("message")
     val message:String,
     @SerializedName("data")
-    val data:UserDTO
+    val data: UserDTO
 )
 
 data class RegisterResponse(
@@ -17,7 +17,7 @@ data class RegisterResponse(
     @SerializedName("message")
     val message:String,
     @SerializedName("data")
-    val data:UserDTO
+    val data: UserDTO
 )
 
 data class UserDTO(
