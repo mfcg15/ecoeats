@@ -7,6 +7,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.mitocode.ecoats.data.database.AppDatabase
 import com.mitocode.ecoats.data.database.dao.DishDao
+import com.mitocode.ecoats.data.database.dao.FavoriteDao
 import com.mitocode.ecoats.data.database.dao.UserDao
 import com.mitocode.ecoats.data.repository.DishRepositoryImp
 import com.mitocode.ecoats.data.repository.LoginRepositoryImp
@@ -56,8 +57,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDishRepository(sharedPreferences: SharedPreferences, dishDao: DishDao) : DishRepository {
-        return DishRepositoryImp(sharedPreferences, dishDao)
+    fun provideDishRepository(sharedPreferences: SharedPreferences, dishDao: DishDao, favoriteDao: FavoriteDao) : DishRepository {
+        return DishRepositoryImp(sharedPreferences, dishDao, favoriteDao)
     }
 
     @Provides
@@ -75,6 +76,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDishDao(db:AppDatabase) : DishDao = db.dishDao()
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(db:AppDatabase) : FavoriteDao = db.favoriteDao()
 
     @Provides
     @Singleton

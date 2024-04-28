@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CartShoppingScreen(paddingValues: PaddingValues) {
+fun CartShoppingScreen(paddingValues: PaddingValues,idUser : Int) {
 
 }
 
 @Preview (name = "CartShoppingScreen", showSystemUi = true)
 @Composable
 fun CartShoppingScreenPreview() {
-    CartShoppingScreen(paddingValues = PaddingValues())
+    CartShoppingScreen(paddingValues = PaddingValues(), idUser = 0)
 }

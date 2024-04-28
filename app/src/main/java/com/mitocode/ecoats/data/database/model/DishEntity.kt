@@ -40,5 +40,8 @@ data class DishEntity(
     val ingredients:String,
 
     @ColumnInfo(name = "flagHeader")
-    val flagHeader:Boolean
+    val flagHeader:Boolean,
+
+    @ColumnInfo(name = "favorite")
+    val favorite:Boolean=false
 )

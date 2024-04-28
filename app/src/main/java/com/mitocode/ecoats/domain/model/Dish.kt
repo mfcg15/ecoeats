@@ -1,6 +1,7 @@
 package com.mitocode.ecoats.domain.model
 
 import com.mitocode.ecoats.data.database.model.DishEntity
+import com.mitocode.ecoats.data.database.model.FavoriteEntity
 import com.mitocode.ecoats.data.networking.model.DishDTO
 
 data class Dish(
@@ -14,7 +15,8 @@ data class Dish(
     val price:Double,
     val rating:Double,
     val ingredients:String,
-    val flagHeader:Boolean
+    val flagHeader:Boolean,
+    val favorite:Boolean
 )
 
 fun List<DishDTO>.ToDishList() : List<Dish> = map {
@@ -29,7 +31,8 @@ fun List<DishDTO>.ToDishList() : List<Dish> = map {
         price = it.price,
         rating = it.rating,
         ingredients = it.ingredients,
-        flagHeader = it.flagHeader
+        flagHeader = it.flagHeader,
+        favorite = false
     )
 }
 
@@ -45,7 +48,8 @@ fun List<DishEntity>.ToEntityDishList() : List<Dish> = map {
         price = it.price,
         rating = it.rating,
         ingredients = it.ingredients,
-        flagHeader = it.flagHeader
+        flagHeader = it.flagHeader,
+        favorite = it.favorite
     )
 }
 

@@ -1,11 +1,9 @@
 package com.mitocode.ecoats.presentation.dish
 
 import android.content.Context
-import android.widget.RatingBar
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,20 +24,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.BookmarkBorder
-import androidx.compose.material.icons.filled.DensitySmall
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarOutline
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.DensitySmall
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -49,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -63,6 +57,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.mitocode.ecoats.domain.model.Dish
+import com.mitocode.ecoats.domain.model.Favorite
 import com.mitocode.ecoats.presentation.common.SpacerComponent
 import com.mitocode.ecoats.presentation.common.TextComponent
 import com.mitocode.ecoats.ui.theme.PrimaryButton
@@ -73,6 +68,8 @@ import com.mitocode.ecoats.ui.theme.PrimaryButton
 fun DishScreen(
     viewmodel: DishViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
+    idUser : Int,
+    onSelectedItem: (Dish) -> Unit
 ) {
 
     val state = viewmodel.state
@@ -96,7 +93,7 @@ fun DishScreen(
     }
 
     LaunchedEffect(key1 = true) {
-        viewmodel.fetchData()
+        viewmodel.fetchData(idUser)
     }
 
     if (state.error != null) {
@@ -221,7 +218,13 @@ fun DishScreen(
                         items(dishes){dish ->
                             DishItemList(
                                 dish = dish,
-                                context = context
+                                context = context,
+                                onSelectedItem = {
+                                    onSelectedItem(it)
+                                },
+                                onSaveFavorite = {idDish,favorite ->
+                                    viewmodel.updateFavoriteDish(idUser,idDish,favorite)
+                                }
                             )
                         }
                     }
@@ -241,6 +244,12 @@ fun DishScreen(
                             DishItem(
                                 dish = dish,
                                 context =context,
+                                onSelectedItem = {
+                                    onSelectedItem(it)
+                                },
+                                onSaveFavorite = {idDish,favorite ->
+                                    viewmodel.updateFavoriteDish(idUser,idDish,favorite)
+                                }
                             )
                         }
                     }
@@ -302,10 +311,16 @@ fun DishItemList(
     modifier: Modifier = Modifier,
     dish: Dish,
     context: Context,
+    onSelectedItem: (Dish) -> Unit,
+    onSaveFavorite:(Int,Boolean) -> Unit
 ) {
     Card(
         border = BorderStroke(width = 1.dp, color = PrimaryButton),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                onSelectedItem(dish)
+            }
     ) {
 
         Row(
@@ -350,9 +365,10 @@ fun DishItemList(
                     Row(modifier = Modifier.weight(1f),horizontalArrangement = Arrangement.End)
                     {
                         IconButton(onClick = {
+                            onSaveFavorite(dish.id,!dish.favorite)
                         }) {
                             Icon(
-                                imageVector = Icons.Outlined.BookmarkBorder,
+                                imageVector = if(dish.favorite) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
                                 contentDescription = "Favorite",
                                 tint = PrimaryButton,
                             )
@@ -422,12 +438,17 @@ fun DishItem(
     modifier: Modifier = Modifier,
     dish: Dish,
     context: Context,
+    onSelectedItem: (Dish) -> Unit,
+    onSaveFavorite:(Int,Boolean) -> Unit
 ) {
 
     Card(
         border = BorderStroke(width = 1.dp, color = PrimaryButton),
         modifier = modifier
             .fillMaxWidth()
+            .clickable {
+                onSelectedItem(dish)
+            }
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             AsyncImage(
@@ -454,9 +475,10 @@ fun DishItem(
                     )
                 )
                 IconButton(onClick = {
+                    onSaveFavorite(dish.id,!dish.favorite)
                 }) {
                     Icon(
-                        imageVector = Icons.Outlined.BookmarkBorder,
+                        imageVector = if(dish.favorite) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
                         contentDescription = "Favorite",
                         tint = PrimaryButton,
                     )
@@ -516,7 +538,6 @@ fun RatingBar(
                 tint = if (i <= currentRating) starsColor
                 else Color.Unspecified,
                 modifier = Modifier
-                    .clickable { }
                     .padding(2.dp)
             )
         }
@@ -526,5 +547,5 @@ fun RatingBar(
 @Preview (name = "DishScreen", showSystemUi = true)
 @Composable
 fun DishScreenPreview() {
-    DishScreen(paddingValues = PaddingValues())
+    DishScreen(paddingValues = PaddingValues(), idUser = 0, onSelectedItem ={})
 }

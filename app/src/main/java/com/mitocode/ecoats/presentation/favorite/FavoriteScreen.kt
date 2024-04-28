@@ -5,11 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun FavoriteScreen(paddingValues: PaddingValues) {
+fun FavoriteScreen(
+    paddingValues: PaddingValues,
+    idUser : Int
+) {
+
 }
 
 @Preview (name = "FavoriteScreen", showSystemUi = true)
 @Composable
 fun FavoriteScreenPreview() {
-    FavoriteScreen(paddingValues = PaddingValues())
+    FavoriteScreen(paddingValues = PaddingValues(), idUser = 0)
 }

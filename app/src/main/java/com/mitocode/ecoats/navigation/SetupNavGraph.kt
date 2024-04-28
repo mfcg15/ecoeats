@@ -1,5 +1,6 @@
 package com.mitocode.ecoats.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,7 +31,9 @@ fun SetupNavGraph() {
         }
         composable(route = Screen.Login.route) {
             LoginScreen(
-                onNavigateHome = { navController.navigate(route = Screen.Home.route)},
+                onNavigateHome = {
+                    val idUser :String = it.toString()
+                    navController.navigate(Screen.Home.createRoute(idUser))},
                 onNavigateRegister = { navController.navigate(route = Screen.Register.route)}
             )
         }
@@ -42,11 +45,13 @@ fun SetupNavGraph() {
                     navController.navigate(route = Screen.Login.route)},
                 onNavigateHome = {
                     navController.popBackStack()
-                    navController.navigate(route = Screen.Home.route)}
+                    val idUser :String = it.toString()
+                    navController.navigate(Screen.Home.createRoute(idUser))}
             )
         }
         composable(route = Screen.Home.route){
-            HomeScreen()
+            val idUser = it.arguments?.getString("idUser")!!
+            HomeScreen(idUser.toInt())
         }
     }
 }

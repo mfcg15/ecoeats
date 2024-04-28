@@ -58,7 +58,7 @@ import com.mitocode.ecoats.presentation.common.TextAnnotationStringComponent
 @Composable
 fun LoginScreen(
     viewmodel: LoginViewModel = hiltViewModel(),
-    onNavigateHome: () -> Unit,
+    onNavigateHome: (Int) -> Unit,
     onNavigateRegister: () -> Unit
 ) {
 
@@ -67,8 +67,9 @@ fun LoginScreen(
 
     LaunchedEffect(key1 = state.successfull, key2 = state.error) {
         if (state.successfull != null) {
-            Toast.makeText(context, "Bienvenido", Toast.LENGTH_LONG).show()
-            onNavigateHome()
+            Toast.makeText(context, "¡Bienvenido!", Toast.LENGTH_LONG).show()
+            var idUser :Int = state.successfull.id
+            onNavigateHome(idUser)
         }
     }
 

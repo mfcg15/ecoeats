@@ -55,7 +55,7 @@ import com.mitocode.ecoats.ui.theme.PrimaryButton
 fun RegisterScreen(
     viewmodel: RegisterViewModel = hiltViewModel(),
     onNavigateLogin : () -> Unit,
-    onNavigateHome: () -> Unit
+    onNavigateHome: (Int) -> Unit
 ) {
 
     val state = viewmodel.state
@@ -67,7 +67,8 @@ fun RegisterScreen(
         }
         if (state.successfull != null) {
             Toast.makeText(context, "Usuario creado.", Toast.LENGTH_LONG).show()
-            onNavigateHome()
+            var idUser :Int= state.successfull.id
+            onNavigateHome(idUser)
         }
     }
 
@@ -155,6 +156,10 @@ fun ContentRegister(viewmodel: RegisterViewModel) {
     }
 
     var visualTransformation by remember {
+        mutableStateOf(false)
+    }
+
+    var visualTransformationPass by remember {
         mutableStateOf(false)
     }
 
@@ -334,9 +339,9 @@ fun ContentRegister(viewmodel: RegisterViewModel) {
 
             if(passwordConfir != "")
             {
-                IconButton(onClick = { visualTransformation = !visualTransformation }) {
+                IconButton(onClick = { visualTransformationPass = !visualTransformationPass }) {
                     Icon(
-                        imageVector = if (visualTransformation) {
+                        imageVector = if (visualTransformationPass) {
                             Icons.Filled.Visibility
                         } else {
                             Icons.Filled.VisibilityOff
@@ -347,7 +352,7 @@ fun ContentRegister(viewmodel: RegisterViewModel) {
             }
 
         },
-        visualTransformation = if (visualTransformation) {
+        visualTransformation = if (visualTransformationPass) {
             VisualTransformation.None
         } else {
             PasswordVisualTransformation()

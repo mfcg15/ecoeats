@@ -6,13 +6,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Payments
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Summarize
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Payments
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.Summarize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,7 +21,7 @@ import com.mitocode.ecoats.presentation.common.NavigationBarComponent
 import com.mitocode.ecoats.presentation.common.TopAppBarComponent
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(idUser : Int) {
 
     val items = listOf(
         BottomNavigationItem(
@@ -72,11 +68,11 @@ fun HomeScreen() {
             )
         },
     )
-    { paddingValues -> SetupNavGraphHome(paddingValues,navController)}
+    { paddingValues -> SetupNavGraphHome(paddingValues,idUser, navController)}
 }
 
 @Preview(name = "HomeScreen", showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+   HomeScreen(idUser = 0)
 }
