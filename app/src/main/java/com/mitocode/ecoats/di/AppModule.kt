@@ -10,9 +10,11 @@ import com.mitocode.ecoats.data.database.dao.DishDao
 import com.mitocode.ecoats.data.database.dao.FavoriteDao
 import com.mitocode.ecoats.data.database.dao.UserDao
 import com.mitocode.ecoats.data.repository.DishRepositoryImp
+import com.mitocode.ecoats.data.repository.FavoriteRepositoryImp
 import com.mitocode.ecoats.data.repository.LoginRepositoryImp
 import com.mitocode.ecoats.data.repository.RegisterRepositoryImp
 import com.mitocode.ecoats.domain.repository.DishRepository
+import com.mitocode.ecoats.domain.repository.FavoriteRepository
 import com.mitocode.ecoats.domain.repository.LoginRepository
 import com.mitocode.ecoats.domain.repository.RegisterRepository
 import com.mitocode.ecoats.presentation.util.ConnectivityChecker
@@ -59,6 +61,12 @@ class AppModule {
     @Singleton
     fun provideDishRepository(sharedPreferences: SharedPreferences, dishDao: DishDao, favoriteDao: FavoriteDao) : DishRepository {
         return DishRepositoryImp(sharedPreferences, dishDao, favoriteDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteRepository(dishDao: DishDao, favoriteDao: FavoriteDao) : FavoriteRepository {
+        return FavoriteRepositoryImp(dishDao, favoriteDao)
     }
 
     @Provides

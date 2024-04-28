@@ -20,4 +20,7 @@ interface FavoriteDao {
 
     @Query("update favorite_table set favorite=:favorite where idUser=:idUser and idDish=:idDish")
     suspend fun updateFavorite(idUser:Int,idDish:Int,favorite:Boolean)
+
+    @Query("select count(idDish) from favorite_table where idUser=:idUser and favorite=true")
+    suspend fun isEmpty(idUser:Int):Int
 }
