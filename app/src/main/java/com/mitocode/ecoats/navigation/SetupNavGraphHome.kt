@@ -38,7 +38,11 @@ fun SetupNavGraphHome(paddingValues: PaddingValues, idUser : Int, navController:
         }
 
         composable(route = ScreenHome.CartShopping.route){
-            CartShoppingScreen(paddingValues = paddingValues, idUser = idUser)
+            CartShoppingScreen(paddingValues = paddingValues, idUser = idUser,
+                onPayment = {
+                    navController.popBackStack()
+                    navController.navigate(route = ScreenHome.Payments.route)
+                })
         }
 
         composable(route = ScreenHome.DishDetail.route){

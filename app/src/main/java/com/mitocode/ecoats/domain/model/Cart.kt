@@ -27,3 +27,16 @@ fun Cart.ToEntityCart() : CartEntity {
         isBuy = this.isBuy
     )
 }
+
+fun List<CartEntity>.ToEntityCartList() : List<Cart> = map {
+    Cart(
+        id = it.id,
+        idUser = it.idUser,
+        idDish = it.idDish,
+        dishName = it.dishName,
+        dishImagen = it.dishImagen,
+        cantidad = it.cantidad,
+        precio = it.precio,
+        total = it.total
+    )
+}

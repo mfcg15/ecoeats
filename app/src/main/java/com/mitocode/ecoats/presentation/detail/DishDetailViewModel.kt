@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitocode.ecoats.core.Result
 import com.mitocode.ecoats.domain.repository.CartRepository
-import com.mitocode.ecoats.domain.repository.FavoriteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -50,5 +49,6 @@ class DishDetailViewModel@Inject constructor(val repository: CartRepository): Vi
             state = state.copy(isLoading = false)
         }
         isDishCart(idUser,idDish)
+
     }
 }

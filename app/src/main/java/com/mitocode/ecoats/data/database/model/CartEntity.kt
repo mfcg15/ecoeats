@@ -35,5 +35,5 @@ data class CartEntity (
     val total:Int,
 
     @ColumnInfo(name = "isBuy")
-    val isBuy:Boolean
+    val isBuy:Boolean = false
 )

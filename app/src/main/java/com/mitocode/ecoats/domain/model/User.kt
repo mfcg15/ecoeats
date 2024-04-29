@@ -1,6 +1,5 @@
 package com.mitocode.ecoats.domain.model
 
-import com.mitocode.ecoats.data.database.model.DishEntity
 import com.mitocode.ecoats.data.database.model.UserEntity
 import com.mitocode.ecoats.data.networking.model.UserDTO
 
