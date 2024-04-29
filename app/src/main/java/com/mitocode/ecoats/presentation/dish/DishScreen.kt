@@ -138,7 +138,7 @@ fun DishScreen(
                         PagerHeaderHomeComponent(
                             dishesFlag[page],
                             onSelectedItem = {
-
+                                onSelectedItem(it)
                             }
                         )
                     }

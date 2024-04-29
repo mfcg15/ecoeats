@@ -10,6 +10,8 @@ sealed class ScreenHome(val route:String) {
 
     object CartShopping : ScreenHome(route = "cartshopping_screen")
 
-    object DishDetail : ScreenHome(route = "dish_detail_screen")
+    object DishDetail : ScreenHome(route = "dish_detail_screen/?dishJson={dishJson}"){
+        fun createRoute(dishJson:String) = "dish_detail_screen/?dishJson=$dishJson"
+    }
 
 }

@@ -6,13 +6,16 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.mitocode.ecoats.data.database.AppDatabase
+import com.mitocode.ecoats.data.database.dao.CartDao
 import com.mitocode.ecoats.data.database.dao.DishDao
 import com.mitocode.ecoats.data.database.dao.FavoriteDao
 import com.mitocode.ecoats.data.database.dao.UserDao
+import com.mitocode.ecoats.data.repository.CartRepositoryImp
 import com.mitocode.ecoats.data.repository.DishRepositoryImp
 import com.mitocode.ecoats.data.repository.FavoriteRepositoryImp
 import com.mitocode.ecoats.data.repository.LoginRepositoryImp
 import com.mitocode.ecoats.data.repository.RegisterRepositoryImp
+import com.mitocode.ecoats.domain.repository.CartRepository
 import com.mitocode.ecoats.domain.repository.DishRepository
 import com.mitocode.ecoats.domain.repository.FavoriteRepository
 import com.mitocode.ecoats.domain.repository.LoginRepository
@@ -71,6 +74,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideCartRepository(cartDao: CartDao) : CartRepository {
+        return CartRepositoryImp(cartDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideDatabase(@ApplicationContext context: Context) : AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java,
@@ -88,6 +97,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideFavoriteDao(db:AppDatabase) : FavoriteDao = db.favoriteDao()
+
+    @Provides
+    @Singleton
+    fun provideCartDao(db:AppDatabase) : CartDao = db.cartDao()
 
     @Provides
     @Singleton

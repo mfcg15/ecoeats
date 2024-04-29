@@ -127,7 +127,7 @@ fun DishItem(
                     .height(100.dp)
                     .clip(RoundedCornerShape(16.dp)),
                 model = ImageRequest.Builder(context)
-                    .data(dish.)
+                    .data(dish.image)
                     .crossfade(2000)
                     .build(),
                 contentDescription = "Template Dish",
