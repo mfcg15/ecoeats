@@ -19,3 +19,13 @@ fun Payment.ToEntityPayment() : PaymentEntity {
         idUser = this.idUser
     )
 }
+
+fun List<PaymentEntity>.ToEntityPaymentList() : List<Payment> = map {
+    Payment(
+        id = it.id,
+        fecha = it.fecha,
+        hora = it.hora,
+        total = it.total,
+        idUser = it.idUser
+    )
+}

@@ -226,7 +226,7 @@ fun DishDetailScreen(
                                 modifier = Modifier.weight(1f)
                             )
                             TextComponent(
-                                text = "$${dish.carbohydrates.toInt()}",
+                                text = "$${dish.price.toInt()}",
                                 style = TextStyle(
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
