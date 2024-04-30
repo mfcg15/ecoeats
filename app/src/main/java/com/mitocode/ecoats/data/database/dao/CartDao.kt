@@ -21,6 +21,9 @@ interface CartDao {
     @Query("select precio from cart_table where id=:idDishCart")
     suspend fun getPrecio(idDishCart : Int):Int
 
+    @Query("select count(id) from cart_table where idUser=:idUser and isBuy=false")
+    suspend fun getCantidaCart (idUser:Int):Int
+
     @Query("update cart_table set cantidad=:cantidad, total =:total where id=:idDishCart")
     suspend fun updateDishCart(cantidad:Int, total:Int,idDishCart : Int)
 

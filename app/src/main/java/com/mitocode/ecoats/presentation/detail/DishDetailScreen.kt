@@ -1,7 +1,6 @@
 package com.mitocode.ecoats.presentation.detail
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,13 +39,15 @@ import com.mitocode.ecoats.presentation.common.OutlinedButtonComponent
 import com.mitocode.ecoats.presentation.common.TextComponent
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
-
+private val topAppBarStates = listOf(true,false)
 @Composable
 fun DishDetailScreen(
     viewmodel: DishDetailViewModel = hiltViewModel(),
     paddingValues : PaddingValues,
     idUser: Int,
     dish: Dish,
+    updateCart: (Boolean) -> Unit,
+    estado : Boolean,
     onDish: () -> Unit,
 )
 {
@@ -322,6 +322,8 @@ fun DishDetailScreen(
                                     contentColor = PrimaryButton,
                                     onClickButton = {
                                         viewmodel.saveDishCart(idUser,dish.id,dish.name,dish.image,cantidad,dish.price.toInt())
+                                        var auxEstado = if(estado) 1 else 0
+                                        updateCart(topAppBarStates[auxEstado])
                                         onDish()
                                     },
                                     border = BorderStroke(width = 1.dp, color = PrimaryButton),
@@ -344,5 +346,5 @@ fun DishDetailScreen(
 @Preview (name = "DishDetailScreen", showSystemUi = true)
 @Composable
 fun DishDetailScreenPreview() {
-    DishDetailScreen(paddingValues = PaddingValues(), idUser = 0, dish = Dish(0,"","","http://h3llo.io/eco_eats/eco_eats_arroz_chaufa.jpeg","",0.0,0.0,0.0,0.0,"",false,false), onDish = {})
+    DishDetailScreen(paddingValues = PaddingValues(), idUser = 0, dish = Dish(0,"","","http://h3llo.io/eco_eats/eco_eats_arroz_chaufa.jpeg","",0.0,0.0,0.0,0.0,"",false,false), updateCart = {}, estado = false, onDish = {})
 }

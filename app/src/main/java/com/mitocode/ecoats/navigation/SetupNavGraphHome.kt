@@ -14,7 +14,7 @@ import com.mitocode.ecoats.presentation.favorite.FavoriteScreen
 import com.mitocode.ecoats.presentation.payments.PaymentScreen
 
 @Composable
-fun SetupNavGraphHome(paddingValues: PaddingValues, idUser : Int, navController: NavHostController) {
+fun SetupNavGraphHome(paddingValues: PaddingValues, idUser : Int, navController: NavHostController,updateCart: (Boolean) -> Unit,estado : Boolean) {
 
     NavHost(
         navController = navController,
@@ -38,7 +38,7 @@ fun SetupNavGraphHome(paddingValues: PaddingValues, idUser : Int, navController:
         }
 
         composable(route = ScreenHome.CartShopping.route){
-            CartShoppingScreen(paddingValues = paddingValues, idUser = idUser,
+            CartShoppingScreen(paddingValues = paddingValues, idUser = idUser,updateCart = updateCart,estado = estado,
                 onPayment = {
                     navController.popBackStack()
                     navController.navigate(route = ScreenHome.Payments.route)
@@ -48,7 +48,7 @@ fun SetupNavGraphHome(paddingValues: PaddingValues, idUser : Int, navController:
         composable(route = ScreenHome.DishDetail.route){
             val dishJson = it.arguments?.getString("dishJson")
             val dish = Gson().fromJson(dishJson, Dish::class.java)
-            DishDetailScreen(paddingValues = paddingValues, idUser = idUser, dish = dish,
+            DishDetailScreen(paddingValues = paddingValues, idUser = idUser, dish = dish, updateCart = updateCart, estado = estado,
                 onDish = {
                     navController.popBackStack()
                     navController.navigate(route = ScreenHome.Dish.route)

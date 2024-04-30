@@ -62,6 +62,25 @@ class CartShoppingViewModel @Inject constructor(val repository: CartRepository):
         }
     }
 
+    fun getCantidadDishCart(idUser:Int) {
+        viewModelScope.launch {
+            repository.getCountCart(idUser).onEach {
+                when(it)
+                {
+                    is Result.Error -> {
+                        state = state.copy(isLoading = false , error = it.message)
+                    }
+                    is Result.Loading -> {
+                        state = state.copy(isLoading = true)
+                    }
+                    is Result.Success -> {
+                        state = state.copy(isLoading = true,  cantidad = it.data )
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+    }
+
     fun updateCantidadDishCart(idDishCart:Int,idUser:Int, cantidad: Int)
     {
         viewModelScope.launch {

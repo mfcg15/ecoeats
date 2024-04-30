@@ -13,6 +13,8 @@ interface CartRepository {
 
     suspend fun getTotalPayment(idUser:Int) : Flow<Result<Int>>
 
+    suspend fun getCountCart(idUser:Int) : Flow<Result<Int>>
+
     suspend fun updateDishCart(idDishCart:Int, cantidad : Int)
 
     suspend fun updateCartPayment(idUser:Int)

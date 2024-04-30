@@ -54,12 +54,15 @@ import com.mitocode.ecoats.presentation.common.TextComponent
 import com.mitocode.ecoats.presentation.payments.PaymentViewModel
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
+private val topAppBarStates = listOf(true,false)
 @Composable
 fun CartShoppingScreen(
     viewmodel : CartShoppingViewModel = hiltViewModel(),
     viewmodelPayment : PaymentViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
     idUser : Int,
+    updateCart: (Boolean) -> Unit,
+    estado : Boolean,
     onPayment : () -> Unit,
 ) {
 
@@ -142,6 +145,8 @@ fun CartShoppingScreen(
                                         cartItem = cartItem,
                                         context = context,
                                         idUser = idUser,
+                                        updateCart = updateCart,
+                                        estado = estado,
                                         viewmodel = viewmodel
                                     )
                                 }
@@ -196,6 +201,8 @@ fun CartShoppingScreen(
                                     viewmodel.updateIsPayment(idUser)
                                     val totalPayment = state.total!!
                                     viewmodelPayment.savePayment(totalPayment,idUser)
+                                    var auxEstado = if(estado) 1 else 0
+                                    updateCart(topAppBarStates[auxEstado])
                                     Toast.makeText(context, "¡Pago realizado!", Toast.LENGTH_LONG).show()
                                     onPayment()
                                 },
@@ -215,6 +222,8 @@ fun CartItems(
     cartItem: Cart,
     context: Context,
     idUser: Int,
+    updateCart: (Boolean) -> Unit,
+    estado : Boolean,
     viewmodel : CartShoppingViewModel
 )
 {
@@ -332,6 +341,8 @@ fun CartItems(
                     )
                 }
                 IconButton(onClick = {
+                    var auxEstado = if(estado) 1 else 0
+                    updateCart(topAppBarStates[auxEstado])
                     viewmodel.DeleteDishCart(cartItem.id,idUser)
                 })
                 {
@@ -449,5 +460,5 @@ fun CartItems(
 @Preview (name = "CartShoppingScreen", showSystemUi = true)
 @Composable
 fun CartShoppingScreenPreview() {
-    CartShoppingScreen(paddingValues = PaddingValues(), idUser = 0, onPayment = {})
+    CartShoppingScreen(paddingValues = PaddingValues(), idUser = 0, updateCart = {}, estado = false, onPayment = {})
 }

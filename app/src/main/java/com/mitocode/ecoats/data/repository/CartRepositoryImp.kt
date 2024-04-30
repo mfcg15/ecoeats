@@ -91,6 +91,19 @@ class CartRepositoryImp @Inject constructor(val cartDao: CartDao) : CartReposito
         }
     }
 
+    override suspend fun getCountCart(idUser: Int) : Flow<Result<Int>> = flow {
+
+        try
+        {
+            val countCart = cartDao.getCantidaCart(idUser)
+            emit(Result.Success(data = countCart))
+        }
+        catch (ex:Exception)
+        {
+            emit(Result.Error(message = ex.message))
+        }
+    }
+
     override suspend fun updateDishCart(idDishCart:Int, cantidad : Int) {
         val precio = cartDao.getPrecio(idDishCart)
         val total = precio*cantidad

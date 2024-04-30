@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mitocode.ecoats.R
 import com.mitocode.ecoats.presentation.home.BottomNavigationItem
 import com.mitocode.ecoats.ui.theme.PrimaryButton
 
@@ -180,7 +182,15 @@ fun TopAppBarComponent(
 ) {
     TopAppBar(
         modifier = modifier,
-        title = {},
+        title = {
+            ImageComponent(
+                image = R.drawable.logo_ecoeats,
+                description = "Logo Ecoeats",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .size(25.dp)
+            )
+        },
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = backgroundColor
         ),
